@@ -68,4 +68,27 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 12,
   },
+
+  btnContainerWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 30,
+    marginBottom: 15,
+  },
+  btn: {
+    height: 45,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 25,
+    width: 250,
+    borderRadius: 30,
+    backgroundColor: '#ffffff',
+    color: '#333333',
+  },
 });

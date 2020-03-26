@@ -5,16 +5,26 @@ import {
   createAppContainer,
   HeaderBackButton,
 } from 'react-navigation';
-import { Init } from './src/screens';
+import {
+  InitScreen,
+  RiskScreen,
+  SymptomsScreen,
+  LocationScreen,
+  ProfileScreen,
+} from './src/screens';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 
 const RootStack = createStackNavigator(
   {
-    Init,
+    InitScreen,
+    RiskScreen,
+    SymptomsScreen,
+    LocationScreen,
+    ProfileScreen,
   },
   {
-    initialRouteName: 'Init',
+    initialRouteName: 'InitScreen',
     defaultNavigationOptions: ({ navigation }) => {
       const parent = navigation.dangerouslyGetParent();
       const hasBackButton = parent.state.routes.indexOf(navigation.state) > 0;

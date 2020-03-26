@@ -1,6 +1,11 @@
 const DICTIONARY_EN = {
   screenNames: {
     Init: 'Init',
+    Risk: 'Risk',
+    Symptoms: 'Symptoms',
+    Location: 'Location',
+    Profile: 'Profile',
+
     Login: 'Login',
     Settings: 'Settings',
     'User Profile': 'User Profile',
@@ -50,6 +55,11 @@ const DICTIONARY_EN = {
 const DICTIONARY_DE = {
   screenNames: {
     Init: 'Starten',
+    Risk: 'Risk',
+    Symptoms: 'Symptoms',
+    Location: 'Location',
+    Profile: 'Profile',
+
     Login: 'Login',
     Settings: 'Einstellungen',
     'User Profile': 'Benutzerprofil',
