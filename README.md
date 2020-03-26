@@ -1,5 +1,5 @@
 # Covid No More
-An app built with React Native...
+An app built with React Native.
 
 
 ## Setup development environment
