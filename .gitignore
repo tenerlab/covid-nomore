@@ -77,6 +77,7 @@ fabric.properties
 
 #keystores:
 my-upload-key.keystore
+covidnomore.keystore
 
 # Pods
 /ios/Pods
