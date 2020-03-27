@@ -61,6 +61,19 @@ export const InitScreen = ({ navigation }) => {
         <View style={styles.btnContainerWrapper}>
           <View style={styles.btnContainer}>
             <TouchableOpacity
+              style={styles.btnSpecial}
+              onPress={() => {
+                console.log('onPress');
+                navigateToScreen(navigation, 'InitProfile', {});
+              }}
+            >
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Init Profile')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
@@ -129,19 +142,6 @@ export const InitScreen = ({ navigation }) => {
             >
               <Text style={styles.btnText}>
                 {t('ScreenNames', 'Risk > Direct')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btnSpecial}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Profile', {});
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Profile > Direct')}
               </Text>
             </TouchableOpacity>
           </View>
