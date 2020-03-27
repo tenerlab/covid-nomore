@@ -6,22 +6,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderRadius: 4,
+    width: 250,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
-
   buttonText: {
     color: '#FFF',
     fontWeight: 'bold',
   },
-
   basic: {
-    backgroundColor: '#8ACBE940',
+    // backgroundColor: '#8ACBE940',
   },
-
   positive: {
     backgroundColor: '#FF5031',
     marginTop: 15,
   },
-
   negative: {
     backgroundColor: '#63F70D',
     marginTop: 15,
