@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   InitScreen,
+  HomeScreen,
   RiskScreen,
   SymptomsScreen,
   LocationScreen,
@@ -25,6 +26,12 @@ const RootStack = () => (
       name="Init"
       component={InitScreen}
       options={{ title: 'Covid No More', headerShown: false }}
+    />
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
     />
     <Stack.Screen
       name="Risk"
