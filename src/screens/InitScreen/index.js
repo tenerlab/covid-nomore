@@ -80,6 +80,21 @@ export const InitScreen = ({ navigation }) => {
               onPress={() => {
                 console.log('onPress');
                 navigateToScreen(navigation, 'Home', {
+                  initialTabName: 'Symptoms',
+                });
+              }}
+            >
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Home > Symptoms')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                console.log('onPress');
+                navigateToScreen(navigation, 'Home', {
                   initialTabName: 'Location',
                 });
               }}
@@ -94,43 +109,40 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
+                navigateToScreen(navigation, 'Home', {
+                  initialTabName: 'Profile',
+                });
+              }}
+            >
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Home > Profile')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity
+              style={styles.btnSpecial}
+              onPress={() => {
+                console.log('onPress');
                 navigateToScreen(navigation, 'Risk', {});
               }}
             >
-              <Text style={styles.btnText}>{t('ScreenNames', 'Risk')}</Text>
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Risk > Direct')}
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.btnContainer}>
             <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Symptoms', {});
-              }}
-            >
-              <Text style={styles.btnText}>{t('ScreenNames', 'Symptoms')}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Location', {});
-              }}
-            >
-              <Text style={styles.btnText}>{t('ScreenNames', 'Location')}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
+              style={styles.btnSpecial}
               onPress={() => {
                 console.log('onPress');
                 navigateToScreen(navigation, 'Profile', {});
               }}
             >
-              <Text style={styles.btnText}>{t('ScreenNames', 'Profile')}</Text>
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Profile > Direct')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
