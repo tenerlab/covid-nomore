@@ -23,6 +23,8 @@ export const SymptomsScreen = ({ navigation }) => {
   );
 };
 
+// NOTE: with react-navigation/native 5+, navigationOptions are now obsolete
+// TODO: remove them in future updates:
 SymptomsScreen.navigationOptions = {
   header: null, // hide header
 };

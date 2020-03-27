@@ -23,6 +23,8 @@ export const ProfileScreen = ({ navigation }) => {
   );
 };
 
+// NOTE: with react-navigation/native 5+, navigationOptions are now obsolete
+// TODO: remove them in future updates:
 ProfileScreen.navigationOptions = {
   header: null, // hide header
 };
