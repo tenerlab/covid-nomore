@@ -6,13 +6,11 @@ import { useTranslate } from '@root/hooks';
 import { styles } from './styles';
 
 const imgLogoTop = require('@root/images/logo.top.png');
-// const imgLogoBottom = require('@root/images/logo.bottom.png');
 
 /* ********************************** UTILS ********************************* */
 
 // eslint-disable-next-line no-unused-vars
 const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
-  console.log('navigateToScreen', screenName);
   navigation.navigate(screenName, screenParams);
 };
 
@@ -33,6 +31,8 @@ const navigateToScreenAndReset = async (
     ],
   });
   navigation.dispatch(resetAction);
+
+  // TODO: check if navigation.dispatch still works as of react-navigation/native 5.0+
 };
 
 /* ********************************** MAIN ********************************** */
@@ -64,7 +64,7 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
-                navigateToScreen(navigation, 'RiskScreen', {});
+                navigateToScreen(navigation, 'Risk', {});
               }}
             >
               <Text style={styles.btnText}>{t('ScreenNames', 'Risk')}</Text>
@@ -75,7 +75,7 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
-                navigateToScreen(navigation, 'SymptomsScreen', {});
+                navigateToScreen(navigation, 'Symptoms', {});
               }}
             >
               <Text style={styles.btnText}>{t('ScreenNames', 'Symptoms')}</Text>
@@ -86,7 +86,7 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
-                navigateToScreen(navigation, 'LocationScreen', {});
+                navigateToScreen(navigation, 'Location', {});
               }}
             >
               <Text style={styles.btnText}>{t('ScreenNames', 'Location')}</Text>
@@ -97,7 +97,7 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
-                navigateToScreen(navigation, 'ProfileScreen', {});
+                navigateToScreen(navigation, 'Profile', {});
               }}
             >
               <Text style={styles.btnText}>{t('ScreenNames', 'Profile')}</Text>

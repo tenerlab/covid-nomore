@@ -13,6 +13,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 
 import com.crashlytics.android.Crashlytics;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
@@ -44,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNLocalizePackage(),
             new ActionSheetPackage(),
             new RNVersionNumberPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+             new SafeAreaContextPackage()
       );
     }
 

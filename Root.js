@@ -1,10 +1,7 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
-import {
-  createStackNavigator,
-  createAppContainer,
-  HeaderBackButton,
-} from 'react-navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   InitScreen,
   RiskScreen,
@@ -15,37 +12,49 @@ import {
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 
-const RootStack = createStackNavigator(
-  {
-    InitScreen,
-    RiskScreen,
-    SymptomsScreen,
-    LocationScreen,
-    ProfileScreen,
-  },
-  {
-    initialRouteName: 'InitScreen',
-    defaultNavigationOptions: ({ navigation }) => {
-      const parent = navigation.dangerouslyGetParent();
-      const hasBackButton = parent.state.routes.indexOf(navigation.state) > 0;
-      return {
-        headerLeft: hasBackButton ? (
-          <HeaderBackButton
-            onPress={() => navigation.goBack(null)}
-            backTitleVisible={false}
-            tintColor="white"
-          />
-        ) : null,
-        headerStyle: {
-          backgroundColor: '#de2922',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      };
-    },
-  }
+const Stack = createStackNavigator();
+
+/* ********************************** NAV *********************************** */
+
+const RootStack = () => (
+  <Stack.Navigator
+    initialRouteName="Init"
+    screenOptions={{ gestureEnabled: false }}
+  >
+    <Stack.Screen
+      name="Init"
+      component={InitScreen}
+      options={{ title: 'Covid No More', headerShown: false }}
+    />
+    <Stack.Screen
+      name="Risk"
+      component={RiskScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Symptoms"
+      component={SymptomsScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Location"
+      component={LocationScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+  </Stack.Navigator>
 );
 
-export const Root = createAppContainer(RootStack);
+export const Root = () => (
+  <NavigationContainer>
+    <RootStack />
+  </NavigationContainer>
+);
