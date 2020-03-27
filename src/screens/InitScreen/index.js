@@ -64,6 +64,36 @@ export const InitScreen = ({ navigation }) => {
               style={styles.btn}
               onPress={() => {
                 console.log('onPress');
+                navigateToScreen(navigation, 'Home', {
+                  initialTabName: 'Risk',
+                });
+              }}
+            >
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Home > Risk')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                console.log('onPress');
+                navigateToScreen(navigation, 'Home', {
+                  initialTabName: 'Location',
+                });
+              }}
+            >
+              <Text style={styles.btnText}>
+                {t('ScreenNames', 'Home > Location')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                console.log('onPress');
                 navigateToScreen(navigation, 'Risk', {});
               }}
             >
