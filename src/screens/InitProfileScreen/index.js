@@ -5,6 +5,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from 'react-native-simple-radio-button';
 import { AppGlobals } from '@root/core/app-globals';
 import { styles } from './styles';
 
@@ -35,6 +40,11 @@ export const InitProfileScreen = ({ navigation, route }) => {
 
   const birthdayDateFormat = 'DD-MM-YYYY';
   const todayDateDDMMYYYY = moment().format(birthdayDateFormat);
+
+  const sexRadioOptions = [
+    { label: 'male', value: 'male' },
+    { label: 'female', value: 'female' },
+  ];
 
   return (
     <LinearGradient
@@ -109,12 +119,57 @@ export const InitProfileScreen = ({ navigation, route }) => {
               />
             </View>
             <View style={styles.formFieldWrap}>
-              <Text style={styles.todoText}>TODO: gender</Text>
-            </View>
-            <View style={styles.formInputWrap}>
-              <Text style={styles.todoText}>
-                Current user: {JSON.stringify(AppGlobals.getCurrentUser())}
-              </Text>
+              <Text style={styles.labelStyle}>SEX</Text>
+              <View style={styles.sexRadioOptionsWrap}>
+                <RadioForm
+                  style={styles.sexRadioOptions}
+                  // radio_props={sexRadioOptions}
+                  formHorizontal={true}
+                  onPress={value => {
+                    onFormChange(formData, setFormData, 'sex', value);
+                  }}
+                >
+                  {// eslint-disable-next-line
+                  sexRadioOptions.map((obj, i) => (
+                    <RadioButton labelHorizontal={true} key={i}>
+                      <RadioButtonInput
+                        obj={obj}
+                        index={i}
+                        isSelected={formData.sex === obj.value}
+                        borderWidth={1}
+                        buttonInnerColor={
+                          obj.value == 'male' ? '#0183D3' : '#cc7788'
+                        }
+                        buttonOuterColor={
+                          obj.value == 'male' ? '#0183D3' : '#cc7788'
+                        }
+                        buttonSize={15}
+                        buttonOuterSize={20}
+                        buttonStyle={{}}
+                        onPress={value => {
+                          onFormChange(formData, setFormData, 'sex', value);
+                        }}
+                        buttonWrapStyle={{ marginLeft: 10 }}
+                      />
+                      <RadioButtonLabel
+                        obj={obj}
+                        index={i}
+                        labelHorizontal={false}
+                        onPress={value => {
+                          onFormChange(formData, setFormData, 'sex', value);
+                        }}
+                        labelStyle={{
+                          fontSize: 12,
+                          color: '#666669',
+                          marginLeft: 8,
+                          marginRight: 12,
+                        }}
+                        labelWrapStyle={{}}
+                      />
+                    </RadioButton>
+                  ))}
+                </RadioForm>
+              </View>
             </View>
             <View style={styles.formActionsWrap}>
               <Button

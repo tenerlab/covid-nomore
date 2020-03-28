@@ -33,8 +33,17 @@ export const styles = StyleSheet.create({
   datePicker: {
     width: '100%',
   },
+  sexRadioOptionsWrap: {
+    marginTop: 15,
+    marginLeft: 40,
+  },
+  sexRadioOptions: {
+    marginLeft: 0,
+    marginRight: 0,
+    textAlign: 'center',
+  },
   formActionsWrap: {
-    marginTop: 100,
+    marginTop: 60,
   },
   btnSubmitStyle: {
     backgroundColor: '#53b78D',
@@ -42,6 +51,8 @@ export const styles = StyleSheet.create({
   disclaimer: {
     marginTop: 10,
     padding: 5,
+    fontSize: 11,
+    color: '#9E9E9E',
     textAlign: 'center',
   },
   todoText: {
