@@ -155,7 +155,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-push-notification')
     implementation project(':react-native-svg')
     implementation project(':react-native-device-info')
     implementation project(':@react-native-community_async-storage')
