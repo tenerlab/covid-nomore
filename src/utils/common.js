@@ -1,5 +1,5 @@
 import DeviceInfo from 'react-native-device-info';
-import { Config } from '@root/config';
+import { Config } from '@root/core/config';
 
 export const Utils = {
   tryParseJSON: (jsonString, fallback = false, resultHasToBeObject = true) => {
