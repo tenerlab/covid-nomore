@@ -56,11 +56,13 @@
         "react/jsx-no-bind": "warn",
         "react/jsx-one-expression-per-line": "off",
         "react/jsx-props-no-spreading": "off",
+        "react/jsx-curly-newline": "off",
 
 
         "import/no-extraneous-dependencies": "off",
         "import/prefer-default-export": "off",
 
+        "react/no-array-index-key": "off",
         "react/static-property-placement": "off",
         "react/forbid-prop-types": "off",
         "react/sort-comp": "off",
