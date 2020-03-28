@@ -8,6 +8,7 @@ import { thresholds, riskColors } from '../../utils/constants';
 import { styles } from './styles';
 import ActionButton from './ActionButton';
 import UploadModal from './UploadModal';
+import TestedModal from './TestedModal';
 
 // eslint-disable-next-line
 export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
@@ -16,6 +17,7 @@ export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
   // t('common', 'Some text')
 
   const [showUploadModal, toggleUploadModal] = useState(false);
+  const [showTestedModal, toggleTestedModal] = useState(false);
 
   let risk = 'low';
   if (percentageScore >= thresholds.high) {
@@ -78,7 +80,7 @@ export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
           <ActionButton
             variant="negative"
             text="Report as NEGATIVE for COVID-19"
-            onPress={() => Alert.alert("I'm negative...")}
+            onPress={() => toggleTestedModal(true)}
           />
         </View>
       </View>
@@ -88,6 +90,12 @@ export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
         onBackdropPress={() => toggleUploadModal(false)}
         onBackButtonPress={() => toggleUploadModal(false)}
         encounters={encounters}
+      />
+      <TestedModal
+        closeModal={() => toggleTestedModal(false)}
+        isVisible={showTestedModal}
+        onBackdropPress={() => toggleTestedModal(false)}
+        onBackButtonPress={() => toggleTestedModal(false)}
       />
     </LinearGradient>
   );
