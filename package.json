@@ -29,6 +29,7 @@
     "axios": "^0.18.1",
     "dotenv-parse-variables": "^0.2.3",
     "javascript-time-ago": "^2.0.2",
+    "lodash": "^4.17.15",
     "path": "^0.12.7",
     "pusher-js": "^5.0.0",
     "ramda": "^0.26.1",
