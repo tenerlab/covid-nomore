@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, View, Text, Alert } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
 // import { useTranslate } from '@root/hooks';
+
+import { thresholds, riskColors } from '../../utils/constants';
 import { styles } from './styles';
 import ActionButton from './ActionButton';
+import UploadModal from './UploadModal';
+import TestedModal from './TestedModal';
 
 // eslint-disable-next-line
 export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
@@ -12,27 +16,28 @@ export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
   // you can use t() as follows:
   // t('common', 'Some text')
 
-  const mediumRiskThreshold = 35;
-  const highRiskThreshold = 60;
+  const [showUploadModal, toggleUploadModal] = useState(false);
+  const [showTestedModal, toggleTestedModal] = useState(false);
 
   let risk = 'low';
-  if (percentageScore >= highRiskThreshold) {
+  if (percentageScore >= thresholds.high) {
     risk = 'high';
-  } else if (percentageScore >= mediumRiskThreshold) {
+  } else if (percentageScore >= thresholds.medium) {
     risk = 'medium';
   }
-
-  const riskColors = {
-    low: '#63F70D',
-    medium: '#FFBB3B',
-    high: '#FF5031',
-  };
 
   const riskLabels = {
     low: 'LOW',
     medium: 'MEDIUM',
     high: 'HIGH!',
   };
+
+  const encounters = [
+    { id: '12345', timestamp: '3/25/2020 5:00pm', risk: '29' },
+    { id: '12345', timestamp: '3/25/2020 5:00pm', risk: '56' },
+    { id: '12345', timestamp: '3/25/2020 5:00pm', risk: '29' },
+    { id: '12345', timestamp: '3/25/2020 5:00pm', risk: '70' },
+  ];
 
   return (
     <LinearGradient
@@ -70,15 +75,28 @@ export const RiskScreen = ({ navigation, percentageScore = 10 }) => {
           <ActionButton
             variant="positive"
             text="Report as POSITIVE for COVID-19"
-            onPress={() => Alert.alert("I'm positive...")}
+            onPress={() => toggleUploadModal(true)}
           />
           <ActionButton
             variant="negative"
             text="Report as NEGATIVE for COVID-19"
-            onPress={() => Alert.alert("I'm negative...")}
+            onPress={() => toggleTestedModal(true)}
           />
         </View>
       </View>
+      <UploadModal
+        closeModal={() => toggleUploadModal(false)}
+        isVisible={showUploadModal}
+        onBackdropPress={() => toggleUploadModal(false)}
+        onBackButtonPress={() => toggleUploadModal(false)}
+        encounters={encounters}
+      />
+      <TestedModal
+        closeModal={() => toggleTestedModal(false)}
+        isVisible={showTestedModal}
+        onBackdropPress={() => toggleTestedModal(false)}
+        onBackButtonPress={() => toggleTestedModal(false)}
+      />
     </LinearGradient>
   );
 };
