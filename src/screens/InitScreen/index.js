@@ -1,8 +1,15 @@
-import React from 'react';
-import { Image, Text, TouchableOpacity, StatusBar, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  View,
+} from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
-import { CacheManager } from '@root/utils/cache-manager';
+import { AppGlobals } from '@root/core/app-globals';
 import { useTranslate } from '@root/hooks';
 import { styles } from './styles';
 
@@ -38,37 +45,32 @@ const navigateToScreenAndReset = async (
   // TODO: check if navigation.dispatch still works as of react-navigation/native 5.0+
 };
 
-/* ********************************** INIT ********************************** */
-
-// eslint-disable-next-line no-unused-vars
-const InitUser = async navigation => {
-  CacheManager.getCurrentUser(async cachedUser => {
-    if (cachedUser && cachedUser.id) {
-      initState = 'initialized';
-      navigateToScreen(navigation, 'InitProfile', { currentUser: cachedUser });
-    } else {
-      // if there is no user data in local storage,
-      // clear all user related local data (including messages and conversations)
-      // note: that data is cleared on logout; but we are also deleting it here to double proof
-      await CacheManager.clearAllLocalData();
-      initState = 'initialized';
-      navigateToScreen(navigation, 'Home', {
-        initialTabName: 'Risk',
-      });
-    }
-  });
-};
-
-// TODO: when accessing InitScreen, initialize required variables like currentUser,
-// and nav either to InitProfile (if there is no user data in localStorage),
-// or nav to Home screen
-// Q: pass currentUser and setCurrentUser as props or via global. ?
-
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
 export const InitScreen = ({ navigation }) => {
+  const [isInitialized, setIsInitialized] = useState(false);
   const t = useTranslate();
+
+  AppGlobals.init(() => {
+    setIsInitialized(true);
+  });
+
+  AppGlobals.acceptUpdates();
+
+  // TODO: when we'll finish implementing main screens,
+  // uncomment the bellow code for screen navigation:
+
+  // if (isInitialized) {
+  //   const currentUser = AppGlobals.getCurrentUser();
+
+  //   if (!currentUser) navigateToScreen(navigation, 'InitProfile');
+  //   else
+  //     navigateToScreen(navigation, 'Home', {
+  //       initialTabName: 'Risk',
+  //     });
+  // }
+
   return (
     <LinearGradient
       style={styles.container}
@@ -79,107 +81,99 @@ export const InitScreen = ({ navigation }) => {
         <View style={styles.imgWrapper}>
           <Image style={styles.imgLogoTop} source={imgLogoTop} />
         </View>
-        {/*
-        <View style={styles.loaderWrapper}>
-          <View style={styles.loadingIndicatorWrapper}>
-            <ActivityIndicator size={32} color="#ffffff" />
-            <Text style={styles.loadingText}>{t('common', 'Loading...')}</Text>
-          </View>
-        </View>
-        */}
-        <View style={styles.btnContainerWrapper}>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btnSpecial}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'InitProfile', {});
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Init Profile')}
+        {!isInitialized && (
+          <View style={styles.loaderWrapper}>
+            <View style={styles.loadingIndicatorWrapper}>
+              <ActivityIndicator size={32} color="#ffffff" />
+              <Text style={styles.loadingText}>
+                {t('common', 'Loading...')}
               </Text>
-            </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Home', {
-                  initialTabName: 'Risk',
-                });
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Home > Risk')}
+        )}
+        {isInitialized && (
+          <View style={styles.btnContainerWrapper}>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btnSpecial}
+                onPress={() => {
+                  console.log('onPress');
+                  navigateToScreen(navigation, 'InitProfile', {});
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Init Profile')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  console.log('onPress');
+                  navigateToScreen(navigation, 'Home', {
+                    initialTabName: 'Risk',
+                  });
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Home > Risk')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  console.log('onPress');
+                  navigateToScreen(navigation, 'Home', {
+                    initialTabName: 'Symptoms',
+                  });
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Home > Symptoms')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  console.log('onPress');
+                  navigateToScreen(navigation, 'Home', {
+                    initialTabName: 'Location',
+                  });
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Home > Location')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  console.log('onPress');
+                  navigateToScreen(navigation, 'Home', {
+                    initialTabName: 'Profile',
+                  });
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Home > Profile')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <Text style={styles.currentUserText}>
+                Current user: {JSON.stringify(AppGlobals.getCurrentUser())}
               </Text>
-            </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Home', {
-                  initialTabName: 'Symptoms',
-                });
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Home > Symptoms')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Home', {
-                  initialTabName: 'Location',
-                });
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Home > Location')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Home', {
-                  initialTabName: 'Profile',
-                });
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Home > Profile')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btnContainer}>
-            <TouchableOpacity
-              style={styles.btnSpecial}
-              onPress={() => {
-                console.log('onPress');
-                navigateToScreen(navigation, 'Risk', {});
-              }}
-            >
-              <Text style={styles.btnText}>
-                {t('ScreenNames', 'Risk > Direct')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        )}
       </View>
     </LinearGradient>
   );
-};
-
-InitScreen.navigationOptions = {
-  header: null, // hide header
 };

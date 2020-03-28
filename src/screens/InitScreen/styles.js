@@ -107,4 +107,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#bbbbcc',
     color: '#333333',
   },
+  currentUserText: {
+    color: '#bbb',
+    textAlign: 'center',
+    fontSize: 12,
+  },
 });
