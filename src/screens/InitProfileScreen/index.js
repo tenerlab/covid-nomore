@@ -3,6 +3,7 @@ import { StatusBar, Text, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AppGlobals } from '@root/core/app-globals';
 import { styles } from './styles';
 
 const cloneDeep = require('lodash/cloneDeep');
@@ -17,17 +18,18 @@ const onFormChange = (currentFormData, setFormData, key, newValue) => {
   setFormData(newFormData);
 };
 
-const onFormSubmit = (currentFormData, setCurrentUser) => {
+const onFormSubmit = currentFormData => {
   let userData = cloneDeep(currentFormData);
 
-  if (typeof setCurrentUser == 'function') setCurrentUser(userData);
+  AppGlobals.setCurrentUser(userData);
 };
 
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
-export const InitProfileScreen = ({ navigation, route, setCurrentUser }) => {
+export const InitProfileScreen = ({ navigation, route }) => {
   const [formData, setFormData] = useState(defaultFormData);
+  AppGlobals.acceptUpdates();
 
   return (
     <LinearGradient
@@ -70,12 +72,17 @@ export const InitProfileScreen = ({ navigation, route, setCurrentUser }) => {
             <View style={styles.formInputWrap}>
               <Text style={styles.todoText}>TODO: gender</Text>
             </View>
+            <View style={styles.formInputWrap}>
+              <Text style={styles.todoText}>
+                Current user: {JSON.stringify(AppGlobals.getCurrentUser())}
+              </Text>
+            </View>
             <View style={styles.formActionsWrap}>
               <Button
                 title="Submit"
                 buttonStyle={styles.btnSubmitStyle}
                 onPress={() => {
-                  onFormSubmit(formData, setCurrentUser);
+                  onFormSubmit(formData);
                 }}
               />
             </View>

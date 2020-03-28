@@ -1,14 +1,12 @@
 import React from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-// import { useTranslate } from '@root/hooks';
+import { AppGlobals } from '@root/core/app-globals';
 import { styles } from './styles';
 
 // eslint-disable-next-line
 export const ProfileScreen = ({ navigation }) => {
-  // const t = useTranslate();
-  // you can use t() as follows:
-  // t('common', 'Some text')
+  AppGlobals.acceptUpdates();
 
   return (
     <LinearGradient
@@ -19,12 +17,11 @@ export const ProfileScreen = ({ navigation }) => {
       <View>
         <Text>Profile Screen</Text>
       </View>
+      <View>
+        <Text style={styles.todoText}>
+          Current user: {JSON.stringify(AppGlobals.getCurrentUser())}
+        </Text>
+      </View>
     </LinearGradient>
   );
-};
-
-// NOTE: with react-navigation/native 5+, navigationOptions are now obsolete
-// TODO: remove them in future updates:
-ProfileScreen.navigationOptions = {
-  header: null, // hide header
 };
