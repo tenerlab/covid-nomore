@@ -64,11 +64,12 @@ export const InitScreen = ({ navigation }) => {
   // if (isInitialized) {
   //   const currentUser = AppGlobals.getCurrentUser();
 
-  //   if (!currentUser) navigateToScreen(navigation, 'InitProfile');
-  //   else
-  //     navigateToScreen(navigation, 'Home', {
+  //   if (!currentUser) navigateToScreenAndReset(navigation, 'InitProfile');
+  //   else {
+  //     navigateToScreenAndReset(navigation, 'Home', {
   //       initialTabName: 'Risk',
   //     });
+  //   }
   // }
 
   return (
@@ -97,7 +98,6 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btnSpecial}
                 onPress={() => {
-                  console.log('onPress');
                   navigateToScreen(navigation, 'InitProfile', {});
                 }}
               >
@@ -110,7 +110,6 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  console.log('onPress');
                   navigateToScreen(navigation, 'Home', {
                     initialTabName: 'Risk',
                   });
@@ -125,7 +124,6 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  console.log('onPress');
                   navigateToScreen(navigation, 'Home', {
                     initialTabName: 'Symptoms',
                   });
@@ -140,7 +138,6 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  console.log('onPress');
                   navigateToScreen(navigation, 'Home', {
                     initialTabName: 'Location',
                   });
@@ -155,7 +152,6 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  console.log('onPress');
                   navigateToScreen(navigation, 'Home', {
                     initialTabName: 'Profile',
                   });
