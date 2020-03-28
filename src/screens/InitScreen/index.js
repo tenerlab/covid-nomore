@@ -2,10 +2,13 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, StatusBar, View } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
+import { CacheManager } from '@root/utils/cache-manager';
 import { useTranslate } from '@root/hooks';
 import { styles } from './styles';
 
 const imgLogoTop = require('@root/images/logo.top.png');
+
+let initState = 'not_initialized'; // eslint-disable-line no-unused-vars
 
 /* ********************************** UTILS ********************************* */
 
@@ -34,6 +37,32 @@ const navigateToScreenAndReset = async (
 
   // TODO: check if navigation.dispatch still works as of react-navigation/native 5.0+
 };
+
+/* ********************************** INIT ********************************** */
+
+// eslint-disable-next-line no-unused-vars
+const InitUser = async navigation => {
+  CacheManager.getCurrentUser(async cachedUser => {
+    if (cachedUser && cachedUser.id) {
+      initState = 'initialized';
+      navigateToScreen(navigation, 'InitProfile', { currentUser: cachedUser });
+    } else {
+      // if there is no user data in local storage,
+      // clear all user related local data (including messages and conversations)
+      // note: that data is cleared on logout; but we are also deleting it here to double proof
+      await CacheManager.clearAllLocalData();
+      initState = 'initialized';
+      navigateToScreen(navigation, 'Home', {
+        initialTabName: 'Risk',
+      });
+    }
+  });
+};
+
+// TODO: when accessing InitScreen, initialize required variables like currentUser,
+// and nav either to InitProfile (if there is no user data in localStorage),
+// or nav to Home screen
+// Q: pass currentUser and setCurrentUser as props or via global. ?
 
 /* ********************************** MAIN ********************************** */
 
