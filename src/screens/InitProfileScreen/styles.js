@@ -13,8 +13,13 @@ export const styles = StyleSheet.create({
     padding: 18,
     backgroundColor: '#ffffff',
   },
-  formInputWrap: {
+  formInputFieldWrap: {
     marginBottom: 20,
+  },
+  formFieldWrap: {
+    marginBottom: 20,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
   labelStyle: {
     fontWeight: 'normal',
@@ -24,6 +29,9 @@ export const styles = StyleSheet.create({
   inputStyle: {
     fontWeight: 'normal',
     fontSize: 14,
+  },
+  datePicker: {
+    width: '100%',
   },
   formActionsWrap: {
     marginTop: 100,
