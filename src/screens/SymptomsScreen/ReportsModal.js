@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -7,9 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import CheckBox from '@react-native-community/checkbox';
-
-import { thresholds, riskColors } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   container: {
