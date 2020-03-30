@@ -8,3 +8,8 @@ export const riskColors = {
   medium: '#FFBB3B',
   high: '#FF5031',
 };
+
+export const preExistingHealthConditionTitles = {
+  asthma: 'Asthma',
+  diabetes_type_2: 'Type II Diabetes',
+};

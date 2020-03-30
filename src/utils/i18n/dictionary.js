@@ -32,6 +32,10 @@ const DICTIONARY_EN = {
     'All data has been deleted': 'All data has been deleted',
     "You've been logged-out": "You've been logged-out",
   },
+  preExistingHealthConditions: {
+    Asthma: 'Asthma',
+    'Type II Diabetes': 'Type II Diabetes',
+  },
   common: {
     'Loading...': 'Loading...',
     'Choose a username': 'Choose a username',
@@ -87,6 +91,10 @@ const DICTIONARY_DE = {
       'Lösche alle meine Daten lokal und melde mich ab',
     'All data has been deleted': 'Alle Daten wurden gelöscht',
     "You've been logged-out": 'Du wurdest abgemeldet.',
+  },
+  preExistingHealthConditions: {
+    asthma: 'Asthma',
+    diabetes_type_2: 'Type II Diabetes',
   },
   common: {
     'Loading...': 'Lädt ...',
