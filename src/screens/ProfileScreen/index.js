@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import { dotPathOr } from 'ramda-extension';
 import moment from 'moment';
 import LinearGradient from 'react-native-linear-gradient';
+import { CheckBox } from 'react-native-elements';
 import { AppGlobals } from '@root/core/app-globals';
+import { preExistingHealthConditionTitles as healthConditionTitles } from '@root/utils/constants';
+import HealthConditionsModal from './modals/HealthConditionsModal';
 import { styles } from './styles';
 
 /* ********************************** UTILS ********************************* */
@@ -28,6 +31,26 @@ const preprocessUserDataForDisplay = user => {
     ? moment(data.birthday, 'DD-MM-YYYY').format('MMMM D, YYYY')
     : '-';
 
+  data.preExistingHealthConditions = user.preExistingHealthConditions;
+  data.preExistingHealthConditionsToDisplay = [];
+
+  if (!Array.isArray(data.preExistingHealthConditions))
+    data.preExistingHealthConditions = [];
+
+  data.preExistingHealthConditions.forEach(healthCondition => {
+    if (typeof healthConditionTitles[healthCondition] == 'string')
+      data.preExistingHealthConditionsToDisplay.push(
+        healthConditionTitles[healthCondition]
+      );
+  });
+
+  data.shareSymptomReport = dotPathOr(false, 'shareSymptomReport', user);
+  data.sharePreExistingHealthConditions = dotPathOr(
+    false,
+    'sharePreExistingHealthConditions',
+    user
+  );
+
   return data;
 };
 
@@ -37,14 +60,19 @@ const onEditProfilePress = navigation => {
   navigateToScreen(navigation, 'InitProfile');
 };
 
-const onEditHealthConditionsPress = () => {
-  console.log('onEditHealthConditionsPress');
+const onEditHealthConditionsPress = setIsHealthConditionsModalVisible => {
+  setIsHealthConditionsModalVisible(true);
 };
 
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
 export const ProfileScreen = ({ navigation, route }) => {
+  const [
+    isHealthConditionsModalVisible,
+    setIsHealthConditionsModalVisible,
+  ] = useState(false);
+
   AppGlobals.acceptUpdates();
 
   const currentUser = AppGlobals.getCurrentUser();
@@ -86,12 +114,28 @@ export const ProfileScreen = ({ navigation, route }) => {
               <Text style={styles.fieldLabel}>
                 Pre-Existing Health Conditions:
               </Text>
-              <Text style={styles.fieldValue}>-</Text>
+              {!userData.preExistingHealthConditionsToDisplay.length && (
+                <Text style={styles.fieldValue}>-</Text>
+              )}
+              {userData.preExistingHealthConditionsToDisplay.map(
+                healthConditionTitle => (
+                  <Text
+                    style={[styles.fieldValue, styles.fieldValueFullWidth]}
+                    key={healthConditionTitle}
+                  >
+                    {healthConditionTitle}
+                  </Text>
+                )
+              )}
             </View>
             <View style={styles.profileField}>
               <Text
                 style={styles.fieldLabelEdit}
-                onPress={onEditHealthConditionsPress}
+                onPress={() => {
+                  onEditHealthConditionsPress(
+                    setIsHealthConditionsModalVisible
+                  );
+                }}
               >
                 edit conditions
               </Text>
@@ -100,16 +144,47 @@ export const ProfileScreen = ({ navigation, route }) => {
         </View>
         <View style={[styles.section, styles.sharingSection]}>
           <View>
-            <Text>- Share symptom report</Text>
+            <CheckBox
+              title="Share symptom report"
+              checked={userData.shareSymptomReport}
+              onPress={() => {
+                AppGlobals.setCurrentUserProperty(
+                  'shareSymptomReport',
+                  !userData.shareSymptomReport
+                );
+              }}
+            />
           </View>
           <View>
-            <Text>- Share pre-existing health conditions</Text>
+            <CheckBox
+              title="Share pre-existing health conditions"
+              checked={userData.sharePreExistingHealthConditions}
+              onPress={() => {
+                AppGlobals.setCurrentUserProperty(
+                  'sharePreExistingHealthConditions',
+                  !userData.sharePreExistingHealthConditions
+                );
+              }}
+            />
           </View>
         </View>
         <View style={[styles.section, styles.notificationsSection]}>
           <Text style={styles.notificationsSectionTitle}>Notifications</Text>
         </View>
       </View>
+      <HealthConditionsModal
+        closeModal={() => setIsHealthConditionsModalVisible(false)}
+        isVisible={isHealthConditionsModalVisible}
+        onBackdropPress={() => setIsHealthConditionsModalVisible(false)}
+        onBackButtonPress={() => setIsHealthConditionsModalVisible(false)}
+        onHealthConditionsUpdate={healthConditions => {
+          AppGlobals.setCurrentUserProperty(
+            'preExistingHealthConditions',
+            healthConditions
+          );
+        }}
+        checkedHealthConditions={currentUser.preExistingHealthConditions}
+      />
     </LinearGradient>
   );
 };

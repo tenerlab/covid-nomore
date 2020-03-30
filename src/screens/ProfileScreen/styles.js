@@ -35,6 +35,11 @@ export const styles = StyleSheet.create({
     textDecorationColor: '#0183D3',
     marginLeft: 'auto',
     fontSize: 12,
+    paddingTop: 3,
+    paddingBottom: 3,
+  },
+  fieldValueFullWidth: {
+    width: '100%',
   },
   profileName: {
     width: '100%',
