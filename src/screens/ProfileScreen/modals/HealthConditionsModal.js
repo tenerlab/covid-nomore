@@ -38,7 +38,11 @@ const onHealthConditionStateToggle = (
 /* ********************************** MAIN ********************************** */
 
 const HealthConditionsModal = props => {
-  const initiallyCheckedHeathConditions = props.checkedHealthConditions || [];
+  let initiallyCheckedHeathConditions = props.checkedHealthConditions;
+
+  if (!Array.isArray(initiallyCheckedHeathConditions))
+    initiallyCheckedHeathConditions = [];
+
   const [checkedHealthConditions, setCheckedHealthConditions] = useState(
     initiallyCheckedHeathConditions
   );
