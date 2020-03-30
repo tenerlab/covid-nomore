@@ -17,7 +17,13 @@ const cloneDeep = require('lodash/cloneDeep');
 
 const defaultFormData = { firstName: '', lastName: '' };
 
-/* ********************************** UTILS ********************************* */
+/* ********************************* UTILS ********************************** */
+
+const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
+  navigation.navigate(screenName, screenParams);
+};
+
+/* ********************************* EVENTS ********************************* */
 
 const onFormChange = (currentFormData, setFormData, key, newValue) => {
   let newFormData = cloneDeep(currentFormData);
@@ -25,18 +31,22 @@ const onFormChange = (currentFormData, setFormData, key, newValue) => {
   setFormData(newFormData);
 };
 
-const onFormSubmit = currentFormData => {
+const onFormSubmit = (currentFormData, navigation) => {
   let userData = cloneDeep(currentFormData);
 
   AppGlobals.setCurrentUser(userData);
+  navigateToScreen(navigation, 'Profile', {});
 };
 
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
 export const InitProfileScreen = ({ navigation, route }) => {
-  const [formData, setFormData] = useState(defaultFormData);
   AppGlobals.acceptUpdates();
+
+  const currentUser = AppGlobals.getCurrentUser();
+  const predefinedFormData = { ...defaultFormData, ...currentUser };
+  const [formData, setFormData] = useState(predefinedFormData);
 
   const birthdayDateFormat = 'DD-MM-YYYY';
   const todayDateDDMMYYYY = moment().format(birthdayDateFormat);
@@ -176,7 +186,7 @@ export const InitProfileScreen = ({ navigation, route }) => {
                 title="Submit"
                 buttonStyle={styles.btnSubmitStyle}
                 onPress={() => {
-                  onFormSubmit(formData);
+                  onFormSubmit(formData, navigation);
                 }}
               />
             </View>
