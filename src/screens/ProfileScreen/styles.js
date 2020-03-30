@@ -12,17 +12,29 @@ export const styles = StyleSheet.create({
   },
   contentWrap: {
     margin: 30,
-    padding: 18,
     minHeight: '80%',
+  },
+  section: {
+    padding: 18,
     backgroundColor: '#ffffff',
+    marginBottom: 20,
   },
   profileField: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 5,
+    marginBottom: 8,
   },
   fieldLabel: {
     marginRight: 5,
+    color: '#000000',
+  },
+  fieldLabelEdit: {
+    color: '#0183D3',
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#0183D3',
+    marginLeft: 'auto',
+    fontSize: 12,
   },
   profileName: {
     width: '100%',
@@ -30,9 +42,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
   },
-
-  notificationsSection: {
-    marginTop: 30,
+  profileFieldConditions: {
+    marginTop: 8,
   },
   notificationsSectionTitle: {
     fontSize: 16,

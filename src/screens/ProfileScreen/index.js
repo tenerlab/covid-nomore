@@ -8,6 +8,10 @@ import { styles } from './styles';
 
 /* ********************************** UTILS ********************************* */
 
+const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
+  navigation.navigate(screenName, screenParams);
+};
+
 const preprocessUserDataForDisplay = user => {
   let data = {};
   data.firstName = dotPathOr('', 'firstName', user);
@@ -17,7 +21,7 @@ const preprocessUserDataForDisplay = user => {
   data.sexToDisplay = '-';
 
   if (data.sex == 'male' || data.sex === 1) data.sexToDisplay = 'Male';
-  if (data.sex == 'female' || data.sex === 0) data.sexToDisplay = 'Feale';
+  if (data.sex == 'female' || data.sex === 0) data.sexToDisplay = 'Female';
 
   data.birthday = dotPathOr('', 'birthday', user);
   data.birthdayToDisplay = data.birthday
@@ -27,10 +31,20 @@ const preprocessUserDataForDisplay = user => {
   return data;
 };
 
+/* ********************************* EVENTS ********************************* */
+
+const onEditProfilePress = navigation => {
+  navigateToScreen(navigation, 'InitProfile');
+};
+
+const onEditHealthConditionsPress = () => {
+  console.log('onEditHealthConditionsPress');
+};
+
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
-export const ProfileScreen = ({ navigation }) => {
+export const ProfileScreen = ({ navigation, route }) => {
   AppGlobals.acceptUpdates();
 
   const currentUser = AppGlobals.getCurrentUser();
@@ -43,7 +57,7 @@ export const ProfileScreen = ({ navigation }) => {
     >
       <StatusBar barStyle="light-content" backgroundColor="#03A1E9" />
       <View style={styles.contentWrap}>
-        <View style={styles.profileSection}>
+        <View style={[styles.section, styles.profileSection]}>
           <View style={styles.profileData}>
             <View style={styles.profileField}>
               <Text style={styles.profileName}>{userData.fullName}</Text>
@@ -59,14 +73,32 @@ export const ProfileScreen = ({ navigation }) => {
               <Text style={styles.fieldValue}>{userData.sexToDisplay}</Text>
             </View>
             <View style={styles.profileField}>
+              <Text
+                style={styles.fieldLabelEdit}
+                onPress={() => {
+                  onEditProfilePress(navigation);
+                }}
+              >
+                edit profile
+              </Text>
+            </View>
+            <View style={[styles.profileField, styles.profileFieldConditions]}>
               <Text style={styles.fieldLabel}>
                 Pre-Existing Health Conditions:
               </Text>
               <Text style={styles.fieldValue}>-</Text>
             </View>
+            <View style={styles.profileField}>
+              <Text
+                style={styles.fieldLabelEdit}
+                onPress={onEditHealthConditionsPress}
+              >
+                edit conditions
+              </Text>
+            </View>
           </View>
         </View>
-        <View style={styles.sharingSection}>
+        <View style={[styles.section, styles.sharingSection]}>
           <View>
             <Text>- Share symptom report</Text>
           </View>
@@ -74,7 +106,7 @@ export const ProfileScreen = ({ navigation }) => {
             <Text>- Share pre-existing health conditions</Text>
           </View>
         </View>
-        <View style={styles.notificationsSection}>
+        <View style={[styles.section, styles.notificationsSection]}>
           <Text style={styles.notificationsSectionTitle}>Notifications</Text>
         </View>
       </View>
