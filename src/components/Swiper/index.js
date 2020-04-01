@@ -96,7 +96,7 @@ const styles = {
 
 // missing `module.exports = exports['default'];` with babel6
 // export default React.createClass({
-export default class extends Component {
+export class Swiper extends Component {
   /**
    * Props Validation
    * @type {Object}
@@ -104,9 +104,9 @@ export default class extends Component {
   static propTypes = {
     horizontal: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    scrollViewStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]), // eslint-disable-line react/require-default-props
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]), // eslint-disable-line react/require-default-props
+    scrollViewStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]), // eslint-disable-line react/require-default-props
     pagingEnabled: PropTypes.bool,
     showsHorizontalScrollIndicator: PropTypes.bool,
     showsVerticalScrollIndicator: PropTypes.bool,
@@ -119,17 +119,17 @@ export default class extends Component {
     disableNextButton: PropTypes.bool,
     loadMinimal: PropTypes.bool,
     loadMinimalSize: PropTypes.number,
-    loadMinimalLoader: PropTypes.element,
+    loadMinimalLoader: PropTypes.element, // eslint-disable-line react/require-default-props
     loop: PropTypes.bool,
     autoplay: PropTypes.bool,
     autoplayTimeout: PropTypes.number,
     autoplayDirection: PropTypes.bool,
     index: PropTypes.number,
-    renderPagination: PropTypes.func,
-    dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    activeDotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    dotColor: PropTypes.string,
-    activeDotColor: PropTypes.string,
+    renderPagination: PropTypes.func, // eslint-disable-line react/require-default-props
+    dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]), // eslint-disable-line react/require-default-props
+    activeDotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]), // eslint-disable-line react/require-default-props
+    dotColor: PropTypes.string, // eslint-disable-line react/require-default-props
+    activeDotColor: PropTypes.string, // eslint-disable-line react/require-default-props
     /**
      * Called when the index has changed because the user swiped.
      */
@@ -180,13 +180,15 @@ export default class extends Component {
    * @type {null}
    */
   autoplayTimer = null;
+
   loopJumpTimer = null;
 
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.autoplay && this.autoplayTimer)
       clearTimeout(this.autoplayTimer);
     this.setState(
-      this.initState(nextProps, this.props.index !== nextProps.index),
+      this.initState(nextProps, this.props.index !== nextProps.index)
     );
   }
 
@@ -195,10 +197,11 @@ export default class extends Component {
   }
 
   componentWillUnmount() {
-    this.autoplayTimer && clearTimeout(this.autoplayTimer);
-    this.loopJumpTimer && clearTimeout(this.loopJumpTimer);
+    if (this.autoplayTimer) clearTimeout(this.autoplayTimer);
+    if (this.loopJumpTimer) clearTimeout(this.loopJumpTimer);
   }
 
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillUpdate(nextProps, nextState) {
     // If the index has changed, we notify the parent via the onIndexChanged callback
     if (this.state.index !== nextState.index)
@@ -258,18 +261,22 @@ export default class extends Component {
 
   // include internals with state
   fullState() {
-    return Object.assign({}, this.state, this.internals);
+    // return Object.assign({}, this.state, this.internals);
+    // edit: substituted Object.assign with spread operator:
+    return { ...this.state, ...this.internals };
   }
 
   onLayout = event => {
+    this.internals.offset = {};
+
     const { width, height } = event.nativeEvent.layout;
-    const offset = (this.internals.offset = {});
+    const offset = this.internals.offset;
     const state = { width, height };
 
     if (this.state.total > 1) {
       let setup = this.state.index;
       if (this.props.loop) {
-        setup++;
+        setup += 1;
       }
       offset[this.state.dir] =
         this.state.dir === 'y' ? height * setup : width * setup;
@@ -306,7 +313,7 @@ export default class extends Component {
       () =>
         scrollView.setPageWithoutAnimation &&
         scrollView.setPageWithoutAnimation(i),
-      50,
+      50
     );
   };
 
@@ -322,7 +329,8 @@ export default class extends Component {
     )
       return;
 
-    this.autoplayTimer && clearTimeout(this.autoplayTimer);
+    if (this.autoplayTimer) clearTimeout(this.autoplayTimer);
+
     this.autoplayTimer = setTimeout(() => {
       if (
         !this.props.loop &&
@@ -333,6 +341,7 @@ export default class extends Component {
         return this.setState({ autoplayEnd: true });
 
       this.scrollBy(this.props.autoplayDirection ? 1 : -1);
+      return undefined;
     }, this.props.autoplayTimeout * 1000);
   };
 
@@ -343,7 +352,8 @@ export default class extends Component {
   onScrollBegin = e => {
     // update scroll state
     this.internals.isScrolling = true;
-    this.props.onScrollBeginDrag &&
+
+    if (this.props.onScrollBeginDrag)
       this.props.onScrollBeginDrag(e, this.fullState(), this);
   };
 
@@ -373,7 +383,7 @@ export default class extends Component {
       this.loopJump();
 
       // if `onMomentumScrollEnd` registered will be called here
-      this.props.onMomentumScrollEnd &&
+      if (this.props.onMomentumScrollEnd)
         this.props.onMomentumScrollEnd(e, this.fullState(), this);
     });
   };
@@ -419,16 +429,16 @@ export default class extends Component {
     // Note: if touch very very quickly and continuous,
     // the variation of `index` more than 1.
     // parseInt() ensures it's always an integer
-    index = parseInt(index + Math.round(diff / step));
+    index = parseInt(index + Math.round(diff / step), 10);
 
     if (this.props.loop) {
       if (index <= -1) {
         index = state.total - 1;
-        offset[dir] = step * state.total;
+        offset[dir] = step * state.total; // eslint-disable-line no-param-reassign
         loopJump = true;
       } else if (index >= state.total) {
         index = 0;
-        offset[dir] = step;
+        offset[dir] = step; // eslint-disable-line no-param-reassign
         loopJump = true;
       }
     }
@@ -477,10 +487,10 @@ export default class extends Component {
     if (state.dir === 'y') y = diff * state.height;
 
     if (Platform.OS !== 'ios') {
-      this.scrollView &&
+      if (this.scrollView)
         this.scrollView[animated ? 'setPage' : 'setPageWithoutAnimation'](diff);
-    } else {
-      this.scrollView && this.scrollView.scrollTo({ x, y, animated });
+    } else if (this.scrollView) {
+      this.scrollView.scrollTo({ x, y, animated });
     }
 
     // update scroll state
@@ -574,11 +584,11 @@ export default class extends Component {
         ]}
       />
     );
-    for (let i = 0; i < this.state.total; i++) {
+    for (let i = 0; i < this.state.total; i += 1) {
       dots.push(
         i === this.state.index
           ? React.cloneElement(ActiveDot, { key: i })
-          : React.cloneElement(Dot, { key: i }),
+          : React.cloneElement(Dot, { key: i })
       );
     }
 
@@ -586,9 +596,10 @@ export default class extends Component {
       <View
         pointerEvents="none"
         style={[
-          styles['pagination_' + this.state.dir],
+          styles[`pagination_${this.state.dir}`],
           this.props.paginationStyle,
-        ]}>
+        ]}
+      >
         {dots}
       </View>
     );
@@ -616,7 +627,8 @@ export default class extends Component {
     return (
       <TouchableOpacity
         onPress={() => button !== null && this.scrollBy(1)}
-        disabled={this.props.disableNextButton}>
+        disabled={this.props.disableNextButton}
+      >
         <View>{button}</View>
       </TouchableOpacity>
     );
@@ -638,28 +650,28 @@ export default class extends Component {
     );
   };
 
-  renderButtons = () => {
-    return (
-      <View
-        pointerEvents="box-none"
-        style={[
-          styles.buttonWrapper,
-          {
-            width: this.state.width,
-            height: this.state.height,
-          },
-          this.props.buttonWrapperStyle,
-        ]}>
-        {this.renderPrevButton()}
-        {this.renderNextButton()}
-      </View>
-    );
-  };
+  renderButtons = () => (
+    <View
+      pointerEvents="box-none"
+      style={[
+        styles.buttonWrapper,
+        {
+          width: this.state.width,
+          height: this.state.height,
+        },
+        this.props.buttonWrapperStyle,
+      ]}
+    >
+      {this.renderPrevButton()}
+      {this.renderNextButton()}
+    </View>
+  );
 
   refScrollView = view => {
     this.scrollView = view;
   };
 
+  // eslint-disable-next-line consistent-return
   onPageScrollStateChanged = state => {
     switch (state) {
       case 'dragging':
@@ -667,7 +679,11 @@ export default class extends Component {
 
       case 'idle':
       case 'settling':
-        if (this.props.onTouchEnd) this.props.onTouchEnd();
+        if (this.props.onTouchEnd) {
+          this.props.onTouchEnd();
+        }
+        break;
+      default:
     }
   };
 
@@ -683,7 +699,8 @@ export default class extends Component {
           onScrollBeginDrag={this.onScrollBegin}
           onMomentumScrollEnd={this.onScrollEnd}
           onScrollEndDrag={this.onScrollEndDrag}
-          style={this.props.scrollViewStyle}>
+          style={this.props.scrollViewStyle}
+        >
           {pages}
         </ScrollView>
       );
@@ -696,7 +713,8 @@ export default class extends Component {
         onPageScrollStateChanged={this.onPageScrollStateChanged}
         onPageSelected={this.onScrollEnd}
         key={pages.length}
-        style={[styles.wrapperAndroid, this.props.style]}>
+        style={[styles.wrapperAndroid, this.props.style]}
+      >
         {pages}
       </ViewPagerAndroid>
     );
@@ -740,7 +758,8 @@ export default class extends Component {
       // Re-design a loop model for avoid img flickering
       pages = Object.keys(children);
       if (loop) {
-        pages.unshift(total - 1 + '');
+        let newValue = total - 1;
+        pages.unshift(`${newValue}`);
         pages.push('0');
       }
 
@@ -755,13 +774,15 @@ export default class extends Component {
                 {children[page]}
               </View>
             );
+            // eslint-disable-next-line no-else-return
           } else {
             return (
               <View style={pageStyleLoading} key={i}>
-                {loadMinimalLoader ? loadMinimalLoader : <ActivityIndicator />}
+                {loadMinimalLoader || <ActivityIndicator />}
               </View>
             );
           }
+          // eslint-disable-next-line no-else-return
         } else {
           return (
             <View style={pageStyle} key={i}>
