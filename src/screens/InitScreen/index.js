@@ -98,6 +98,18 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btnSpecial}
                 onPress={() => {
+                  navigateToScreen(navigation, 'Welcome', {});
+                }}
+              >
+                <Text style={styles.btnText}>
+                  {t('ScreenNames', 'Welcome')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btnSpecial}
+                onPress={() => {
                   navigateToScreen(navigation, 'InitProfile', {});
                 }}
               >
@@ -131,20 +143,6 @@ export const InitScreen = ({ navigation }) => {
               >
                 <Text style={styles.btnText}>
                   {t('ScreenNames', 'Home > Symptoms')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Home', {
-                    initialTabName: 'Location',
-                  });
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Home > Location')}
                 </Text>
               </TouchableOpacity>
             </View>
