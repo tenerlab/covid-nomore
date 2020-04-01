@@ -10,6 +10,7 @@ const DICTIONARY_EN = {
     Settings: 'Settings',
     'User Profile': 'User Profile',
   },
+  slides: {},
   auth: {
     'You are logged-in as': 'You are logged-in as',
     'You have logged-in as': 'You have logged-in as',
@@ -68,6 +69,7 @@ const DICTIONARY_DE = {
     Settings: 'Einstellungen',
     'User Profile': 'Benutzerprofil',
   },
+  slides: {},
   auth: {
     'You are logged-in as': 'Du bist eingeloggt als',
     'You have logged-in as': 'Du hast Dich eingeloggt als',
