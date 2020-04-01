@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   InitScreen,
   InitProfileScreen,
+  WelcomeScreen,
   HomeScreen,
   RiskScreen,
   SymptomsScreen,
@@ -31,6 +32,11 @@ const RootStack = () => (
     <Stack.Screen
       name="InitProfile"
       component={InitProfileScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Welcome"
+      component={WelcomeScreen}
       options={{ headerShown: false }}
     />
     <Stack.Screen
