@@ -15,6 +15,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 
 import com.crashlytics.android.Crashlytics;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
@@ -48,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ActionSheetPackage(),
             new RNVersionNumberPackage(),
             new LinearGradientPackage(),
-             new SafeAreaContextPackage()
+            new SafeAreaContextPackage(),
+            new RNCViewPagerPackage()
       );
     }
 
