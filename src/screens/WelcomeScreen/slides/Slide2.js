@@ -1,138 +1,30 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslate } from '@root/hooks';
+import { styles } from '../styles';
 
-const width = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  infoCard: {
-    width: width * 0.7866,
-    backgroundColor: '#3497fc',
-    height: '70%',
-    borderRadius: 12,
-    alignSelf: 'center',
-    marginTop: '9%',
-    justifyContent: 'center',
-  },
-  infoCardImage: {
-    alignSelf: 'center',
-    width: width * 0.5,
-    height: width * 0.5,
-    marginTop: '16%',
-  },
-  infoCardHeadText: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 24,
-    lineHeight: 55,
-    letterSpacing: 0,
-    textAlign: 'center',
-    color: '#ffffff',
-  },
-  infoCardBodyText: {
-    opacity: 0.8,
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 14,
-    lineHeight: 24,
-    letterSpacing: 0,
-    textAlign: 'center',
-    color: '#ffffff',
-    maxWidth: '84%',
-    alignSelf: 'center',
-    marginTop: 20,
-  },
-  navigationDotsView: {
-    flexDirection: 'row',
-    left: width * 0.445,
-    marginTop: 30,
-  },
-  activeIndicator: {
-    width: 8,
-    height: 8,
-    borderRadius: 13,
-    backgroundColor: '#665EFF',
-    opacity: 1,
-    marginRight: 8,
-  },
-  inactiveIndicator: {
-    width: 8,
-    height: 8,
-    opacity: 0.32,
-    borderRadius: 13,
-    backgroundColor: '#78849e',
-    marginRight: 8,
-  },
-  primaryButtonTouchable: {
-    borderRadius: 12,
-    backgroundColor: '#665eff',
-    height: 52,
-    alignSelf: 'center',
-    width: width * 0.38,
-    marginTop: 30,
-    justifyContent: 'center',
-  },
-  primaryButtonText: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 14,
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: 'center',
-    color: '#ffffff',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: width * 0.7866,
-    alignSelf: 'center',
-  },
-  secondaryButtonTouchable: {
-    borderRadius: 12,
-    backgroundColor: 'rgba(120, 132, 158, 0.16)',
-    height: 52,
-    alignSelf: 'center',
-    width: width * 0.38,
-    marginTop: 30,
-    justifyContent: 'center',
-  },
-  secondaryButtonText: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 14,
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: 'center',
-    color: '#454f63',
-  },
-});
+const slideImg = require('@root/images/slides/welcome-slide-2.png');
 
 export const Slide2 = props => {
-  const t = useTranslate();
+  const t = useTranslate(); // eslint-disable-line no-unused-vars
+
+  // TODO: update dictionary.js and implement translation
+  // translation usage example: t('slides', 'some text')
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.slideContainer}>
       <View style={styles.infoCard}>
-        <Text style={styles.infoCardHeadText}>
-          {t('slides', 'label.slide2_title1')}
-        </Text>
-        <Text style={styles.infoCardBodyText}>
-          {t('slides', 'label.slide2_para1')}
-        </Text>
-        <Text style={styles.infoCardHeadText}>
-          {t('slides', 'label.slide2_title2')}
-        </Text>
-        <Text style={styles.infoCardBodyText}>
-          {t('slides', 'label.slide2_para2')}
-        </Text>
+        <Image style={styles.infoCardImage} source={slideImg} />
+        <View style={styles.infoCardContent}>
+          <Text style={[styles.textTitle, styles.spacingAfterLarge]}>
+            Permite accesul la locație
+          </Text>
+          <Text style={[styles.textCommon, styles.spacingAfterMedium]}>
+            Telefonul tau va ști unde și cu cine ai intrat in contact și daca
+            acea persoana a fost diagnosticata pozitiv
+          </Text>
+        </View>
       </View>
-
       <View style={styles.navigationDotsView}>
         <TouchableOpacity
           onPress={() => props.swipe(-1)}
@@ -143,26 +35,6 @@ export const Slide2 = props => {
           onPress={() => props.swipe(1)}
           style={styles.inactiveIndicator}
         />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={() => props.swipe(-1)}
-          style={styles.secondaryButtonTouchable}
-        >
-          <Text style={styles.secondaryButtonText}>
-            {t('slides', 'label.back')}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => props.swipe(1)}
-          style={styles.primaryButtonTouchable}
-        >
-          <Text style={styles.primaryButtonText}>
-            {t('slides', 'label.next')}
-          </Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
