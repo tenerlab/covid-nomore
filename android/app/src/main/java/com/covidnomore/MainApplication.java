@@ -17,7 +17,6 @@ import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 
-import com.crashlytics.android.Crashlytics;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.actionsheet.ActionSheetPackage;
 import com.apsl.versionnumber.RNVersionNumberPackage;
