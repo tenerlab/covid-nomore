@@ -31,7 +31,9 @@ const preprocessUserDataForDisplay = user => {
     ? moment(data.birthday, 'DD-MM-YYYY').format('MMMM D, YYYY')
     : '-';
 
-  data.preExistingHealthConditions = user.preExistingHealthConditions;
+  data.preExistingHealthConditions = user
+    ? user.preExistingHealthConditions
+    : [];
   data.preExistingHealthConditionsToDisplay = [];
 
   if (!Array.isArray(data.preExistingHealthConditions))
@@ -183,7 +185,9 @@ export const ProfileScreen = ({ navigation, route }) => {
             healthConditions
           );
         }}
-        checkedHealthConditions={currentUser.preExistingHealthConditions}
+        checkedHealthConditions={
+          currentUser ? currentUser.preExistingHealthConditions : []
+        }
       />
     </LinearGradient>
   );
