@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
     marginRight: 8,
   },
 
-  // buttons:
+  // buttons (old):
 
   primaryButtonTouchable: {
     borderRadius: 12,
@@ -109,5 +109,21 @@ export const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: 'center',
     color: '#ffffff',
+  },
+
+  // buttons:
+  btnAction: {
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+  },
+  btnActionTitle: {
+    textTransform: 'uppercase',
+    color: '#31344D',
+  },
+  btnActionSlide2Spacing: {
+    marginTop: 40,
+  },
+  btnActionSlide3Spacing: {
+    marginTop: 40,
   },
 });
