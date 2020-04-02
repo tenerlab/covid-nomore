@@ -56,7 +56,7 @@ export const HomeScreen = ({ navigation }) => {
               <View style={styles.scoreItem}>
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
-                  <Text style={styles.scoreUnit}> pct</Text>
+                  <Text style={styles.scoreUnit}>pct</Text>
                 </View>
                 <View style={styles.scoreItemContent}>
                   <Text style={styles.scoreItemTitle}>Access locatie</Text>
@@ -65,13 +65,13 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="close-circle" size={36} color="#ED1C24" />
+                  <Icon name="close-circle" size={42} color="#ED1C24" />
                 </View>
               </View>
               <View style={styles.scoreItem}>
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
-                  <Text style={styles.scoreUnit}> pct</Text>
+                  <Text style={styles.scoreUnit}>pct</Text>
                 </View>
                 <View style={styles.scoreItemContent}>
                   <Text style={styles.scoreItemTitle}>Access bluetooth</Text>
@@ -80,13 +80,13 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={36} color="#75B675" />
+                  <Icon name="check-circle" size={42} color="#75B675" />
                 </View>
               </View>
               <View style={styles.scoreItem}>
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
-                  <Text style={styles.scoreUnit}> pct</Text>
+                  <Text style={styles.scoreUnit}>pct</Text>
                 </View>
                 <View style={styles.scoreItemContent}>
                   <Text style={styles.scoreItemTitle}>
@@ -97,13 +97,13 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={36} color="#C1BCBD" />
+                  <Icon name="check-circle" size={42} color="#C1BCBD" />
                 </View>
               </View>
               <View style={styles.scoreItem}>
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
-                  <Text style={styles.scoreUnit}> pct</Text>
+                  <Text style={styles.scoreUnit}>pct</Text>
                 </View>
                 <View style={styles.scoreItemContent}>
                   <Text style={styles.scoreItemTitle}>Chestionar zilnic</Text>
@@ -112,7 +112,7 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={36} color="#C1BCBD" />
+                  <Icon name="check-circle" size={42} color="#C1BCBD" />
                 </View>
               </View>
             </ScrollView>

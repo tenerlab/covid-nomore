@@ -97,6 +97,10 @@ export const styles = StyleSheet.create({
   scoreItem: {
     display: 'flex',
     flexDirection: 'row',
+    borderStyle: 'solid',
+    borderBottomWidth: 2,
+    borderBottomColor: '#F6F8FE',
+    padding: 12,
   },
   scoreItemBlock: {
     minWidth: 50,
@@ -113,15 +117,22 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 1,
+    marginRight: 8,
   },
   scoreItemContent: {
     flex: 1,
   },
   scoreItemIconWrap: {
-    padding: 5,
+    padding: 3,
+    marginLeft: 5,
   },
   scoreItemTitle: {
     textTransform: 'uppercase',
-    fontSize: 20,
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#484A5E',
+  },
+  scoreItemDescription: {
+    color: '#A4A6C0',
   },
 });
