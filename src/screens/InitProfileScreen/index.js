@@ -35,9 +35,7 @@ const onFormSubmit = (currentFormData, navigation) => {
   let userData = cloneDeep(currentFormData);
 
   AppGlobals.setCurrentUser(userData);
-  navigateToScreen(navigation, 'Main', {
-    initialTabName: 'Profile',
-  });
+  navigateToScreen(navigation, 'Profile', {});
 };
 
 /* ********************************** MAIN ********************************** */

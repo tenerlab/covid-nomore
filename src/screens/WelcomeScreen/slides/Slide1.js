@@ -17,7 +17,7 @@ export const Slide1 = props => {
         <Image style={styles.infoCardImage} source={slideImg} />
         <View style={styles.infoCardContent}>
           <Text style={[styles.textTitle, styles.spacingAfterLarge]}>
-            Contribue la prevenirea Răspândirii COVID-19
+            Contribue la prevenirea răspândirii COVID-19
           </Text>
           <Text style={[styles.textCommon, styles.spacingAfterMedium]}>
             Află cum poți sa contribui la răspândirea virusului COVID-19
