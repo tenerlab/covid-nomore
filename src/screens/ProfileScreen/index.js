@@ -90,7 +90,9 @@ export const ProfileScreen = ({ navigation, route }) => {
         <View style={[styles.section, styles.profileSection]}>
           <View style={styles.profileData}>
             <View style={styles.profileField}>
-              <Text style={styles.profileName}>{userData.fullName}</Text>
+              <Text style={styles.profileName}>
+                {userData.fullName || 'PROFILE'}
+              </Text>
             </View>
             <View style={styles.profileField}>
               <Text style={styles.fieldLabel}>Date of Birth:</Text>
