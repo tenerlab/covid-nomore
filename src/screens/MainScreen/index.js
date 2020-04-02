@@ -3,11 +3,8 @@ import { View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { dotPathOr } from 'ramda-extension';
-import { RiskScreen } from '@root/screens/RiskScreen';
-import { SymptomsScreen } from '@root/screens/SymptomsScreen';
-import { LocationScreen } from '@root/screens/LocationScreen';
-import { ProfileScreen } from '@root/screens/ProfileScreen';
-
+import { HomeScreen } from '@root/screens/HomeScreen';
+import { InfoScreen } from '@root/screens/InfoScreen';
 import { styles } from './styles';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -23,70 +20,40 @@ export const MainScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Tab.Navigator
         initialRouteName={initialTabName}
-        activeColor="#ffffff"
-        inactiveColor="#999999"
-        barStyle={{ backgroundColor: '#133549' }}
+        activeColor="#1EC0FF"
+        inactiveColor="#7B7B7B"
+        barStyle={{ backgroundColor: '#ffffff' }}
         labeled={true}
         shifting={true}
       >
         <Tab.Screen
-          name="Risk"
-          component={RiskScreen}
+          name="Home"
+          component={HomeScreen}
           options={{
-            tabBarLabel: 'Risk',
+            tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="shield-account-outline"
+                name="home"
                 color={color}
                 size={tabBarIconSize}
               />
             ),
-            tabBarColor: '#133549',
+            tabBarColor: '#ffffff',
           }}
         />
         <Tab.Screen
-          name="Symptoms"
-          component={SymptomsScreen}
+          name="Info"
+          component={InfoScreen}
           options={{
-            tabBarLabel: 'Symptoms',
+            tabBarLabel: 'Info',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="doctor"
+                name="information-variant"
                 color={color}
                 size={tabBarIconSize}
               />
             ),
-            tabBarColor: '#236055',
-          }}
-        />
-        <Tab.Screen
-          name="Location"
-          component={LocationScreen}
-          options={{
-            tabBarLabel: 'Location',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="map-marker"
-                color={color}
-                size={tabBarIconSize}
-              />
-            ),
-            tabBarColor: '#494449',
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="account"
-                color={color}
-                size={tabBarIconSize}
-              />
-            ),
-            tabBarColor: '#333338',
+            tabBarColor: '#ffffff',
           }}
         />
       </Tab.Navigator>

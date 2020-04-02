@@ -108,13 +108,15 @@ export const InitScreen = ({ navigation }) => {
             </View>
             <View style={styles.btnContainer}>
               <TouchableOpacity
-                style={styles.btnSpecial}
+                style={styles.btn}
                 onPress={() => {
-                  navigateToScreen(navigation, 'InitProfile', {});
+                  navigateToScreen(navigation, 'Main', {
+                    initialTabName: 'Home',
+                  });
                 }}
               >
                 <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Init Profile')}
+                  {t('ScreenNames', 'Main > Home')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -123,40 +125,12 @@ export const InitScreen = ({ navigation }) => {
                 style={styles.btn}
                 onPress={() => {
                   navigateToScreen(navigation, 'Main', {
-                    initialTabName: 'Risk',
+                    initialTabName: 'Info',
                   });
                 }}
               >
                 <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Main > Risk')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Main', {
-                    initialTabName: 'Symptoms',
-                  });
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Main > Symptoms')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Main', {
-                    initialTabName: 'Profile',
-                  });
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Main > Profile')}
+                  {t('ScreenNames', 'Main > Info')}
                 </Text>
               </TouchableOpacity>
             </View>

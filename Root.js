@@ -4,13 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   InitScreen,
-  InitProfileScreen,
   WelcomeScreen,
   MainScreen,
+  HomeScreen,
+  InfoScreen,
+  InitProfileScreen,
+  ProfileScreen,
   RiskScreen,
   SymptomsScreen,
   LocationScreen,
-  ProfileScreen,
 } from './src/screens';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -30,11 +32,6 @@ const RootStack = () => (
       options={{ title: 'Covid No More', headerShown: false }}
     />
     <Stack.Screen
-      name="InitProfile"
-      component={InitProfileScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
       name="Welcome"
       component={WelcomeScreen}
       options={{ headerShown: false }}
@@ -42,6 +39,29 @@ const RootStack = () => (
     <Stack.Screen
       name="Main"
       component={MainScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Info"
+      component={InfoScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="InitProfile"
+      component={InitProfileScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={ProfileScreen}
       options={{ headerShown: false }}
       initialParams={{}}
     />
@@ -60,12 +80,6 @@ const RootStack = () => (
     <Stack.Screen
       name="Location"
       component={LocationScreen}
-      options={{ headerShown: false }}
-      initialParams={{}}
-    />
-    <Stack.Screen
-      name="Profile"
-      component={ProfileScreen}
       options={{ headerShown: false }}
       initialParams={{}}
     />
