@@ -66,7 +66,7 @@ export const InitScreen = ({ navigation }) => {
 
   //   if (!currentUser) navigateToScreenAndReset(navigation, 'InitProfile');
   //   else {
-  //     navigateToScreenAndReset(navigation, 'Home', {
+  //     navigateToScreenAndReset(navigation, 'Main', {
   //       initialTabName: 'Risk',
   //     });
   //   }
@@ -122,13 +122,13 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  navigateToScreen(navigation, 'Home', {
+                  navigateToScreen(navigation, 'Main', {
                     initialTabName: 'Risk',
                   });
                 }}
               >
                 <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Home > Risk')}
+                  {t('ScreenNames', 'Main > Risk')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -136,13 +136,13 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  navigateToScreen(navigation, 'Home', {
+                  navigateToScreen(navigation, 'Main', {
                     initialTabName: 'Symptoms',
                   });
                 }}
               >
                 <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Home > Symptoms')}
+                  {t('ScreenNames', 'Main > Symptoms')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -150,13 +150,13 @@ export const InitScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  navigateToScreen(navigation, 'Home', {
+                  navigateToScreen(navigation, 'Main', {
                     initialTabName: 'Profile',
                   });
                 }}
               >
                 <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Home > Profile')}
+                  {t('ScreenNames', 'Main > Profile')}
                 </Text>
               </TouchableOpacity>
             </View>

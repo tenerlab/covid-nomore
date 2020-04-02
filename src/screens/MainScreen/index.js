@@ -13,7 +13,7 @@ import { styles } from './styles';
 const Tab = createMaterialBottomTabNavigator();
 
 // eslint-disable-next-line
-export const HomeScreen = ({ navigation, route }) => {
+export const MainScreen = ({ navigation, route }) => {
   let initialTabName =
     dotPathOr(null, 'params.initialTabName', route) || 'Risk';
 

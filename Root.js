@@ -6,7 +6,7 @@ import {
   InitScreen,
   InitProfileScreen,
   WelcomeScreen,
-  HomeScreen,
+  MainScreen,
   RiskScreen,
   SymptomsScreen,
   LocationScreen,
@@ -40,8 +40,8 @@ const RootStack = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="Home"
-      component={HomeScreen}
+      name="Main"
+      component={MainScreen}
       options={{ headerShown: false }}
       initialParams={{}}
     />
