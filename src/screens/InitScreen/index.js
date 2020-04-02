@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-  View,
-} from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
-import LinearGradient from 'react-native-linear-gradient';
+import React from 'react';
+import { Image, StatusBar, View } from 'react-native';
+import { StackActions } from '@react-navigation/native';
 import { AppGlobals } from '@root/core/app-globals';
-import { useTranslate } from '@root/hooks';
 import { styles } from './styles';
 
-const imgLogoTop = require('@root/images/logo.top.png');
-
-let initState = 'not_initialized'; // eslint-disable-line no-unused-vars
+const minimumTimeToShowInitScreen = 1000;
+const imgLogo = require('@root/images/logo.png');
 
 /* ********************************** UTILS ********************************* */
 
@@ -24,124 +14,42 @@ const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
   navigation.navigate(screenName, screenParams);
 };
 
-// eslint-disable-next-line no-unused-vars
-const navigateToScreenAndReset = async (
+// this method will replace current screen in nav stack with screenName,
+// such that user wan't be able to go Back here
+const navigateToScreenAndReplace = async (
   navigation,
   screenName,
   screenParams = {}
 ) => {
-  // this method will remove current screen from stack, such that user wan't be able to go Back to it
-  const resetAction = StackActions.reset({
-    index: 0,
-    actions: [
-      NavigationActions.navigate({
-        routeName: screenName,
-        params: screenParams,
-      }),
-    ],
-  });
-  navigation.dispatch(resetAction);
-
-  // TODO: check if navigation.dispatch still works as of react-navigation/native 5.0+
+  navigation.dispatch(StackActions.replace(screenName, screenParams));
 };
 
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
 export const InitScreen = ({ navigation }) => {
-  const [isInitialized, setIsInitialized] = useState(false);
-  const t = useTranslate();
+  let initStartTimestamp = Date.now();
 
   AppGlobals.init(() => {
-    setIsInitialized(true);
+    let currentTimestamp = Date.now();
+    let initTimeTotal = currentTimestamp - initStartTimestamp;
+    let delay = Math.max(0, minimumTimeToShowInitScreen - initTimeTotal);
+
+    setTimeout(async () => {
+      navigateToScreenAndReplace(navigation, 'Welcome', {});
+    }, delay); // note: in remote debug mode this may fire immediately due to clock missmatch
   });
 
   AppGlobals.acceptUpdates();
 
-  // TODO: when we'll finish implementing main screens,
-  // uncomment the bellow code for screen navigation:
-
-  // if (isInitialized) {
-  //   const currentUser = AppGlobals.getCurrentUser();
-
-  //   if (!currentUser) navigateToScreenAndReset(navigation, 'InitProfile');
-  //   else {
-  //     navigateToScreenAndReset(navigation, 'Main', {
-  //       initialTabName: 'Risk',
-  //     });
-  //   }
-  // }
-
   return (
-    <LinearGradient
-      style={styles.container}
-      colors={['#03A1E9', '#0183D3', '#0063BD']}
-    >
-      <StatusBar barStyle="light-content" backgroundColor="#03A1E9" />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#ffffff" />
       <View>
         <View style={styles.imgWrapper}>
-          <Image style={styles.imgLogoTop} source={imgLogoTop} />
+          <Image style={styles.imgLogo} source={imgLogo} />
         </View>
-        {!isInitialized && (
-          <View style={styles.loaderWrapper}>
-            <View style={styles.loadingIndicatorWrapper}>
-              <ActivityIndicator size={32} color="#ffffff" />
-              <Text style={styles.loadingText}>
-                {t('common', 'Loading...')}
-              </Text>
-            </View>
-          </View>
-        )}
-        {isInitialized && (
-          <View style={styles.btnContainerWrapper}>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btnSpecial}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Welcome', {});
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Welcome')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Main', {
-                    initialTabName: 'Home',
-                  });
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Main > Home')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  navigateToScreen(navigation, 'Main', {
-                    initialTabName: 'Info',
-                  });
-                }}
-              >
-                <Text style={styles.btnText}>
-                  {t('ScreenNames', 'Main > Info')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
-              <Text style={styles.currentUserText}>
-                Current user: {JSON.stringify(AppGlobals.getCurrentUser())}
-              </Text>
-            </View>
-          </View>
-        )}
       </View>
-    </LinearGradient>
+    </View>
   );
 };
