@@ -1,5 +1,5 @@
 import React from 'react';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-simple-toast'; // eslint-disable-line
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useTranslate } from '@root/hooks';
@@ -7,10 +7,18 @@ import { styles } from '../styles';
 
 const slideImg = require('@root/images/slides/welcome-slide-3.png');
 
+/* ********************************** UTILS ********************************* */
+
+// eslint-disable-next-line no-unused-vars
+const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
+  navigation.navigate(screenName, screenParams);
+};
+
 /* ********************************* EVENTS ********************************* */
 
-const onBtnAccessRequestPress = () => {
-  Toast.show('TODO: request bluetooth permissions', Toast.SHORT);
+const onBtnAccessRequestPress = navigation => {
+  // Toast.show('TODO: request bluetooth permissions', Toast.SHORT);
+  navigateToScreen(navigation, 'Main', { initialTabName: 'Home' });
 };
 
 /* ********************************** MAIN ********************************** */
@@ -38,7 +46,9 @@ export const Slide3 = props => {
             buttonStyle={[styles.btnAction, styles.btnActionSlide3Spacing]}
             titleStyle={styles.btnActionTitle}
             title="Permite acces"
-            onPress={onBtnAccessRequestPress}
+            onPress={() => {
+              onBtnAccessRequestPress(props.navigation);
+            }}
           />
         </View>
       </View>
