@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
   },
 
-  // score:
+  // header score:
   scoreBoard: {
     marginTop: 30,
     width: '100%',
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   scoreBlock: {
-    minWidth: 80,
+    minWidth: 100,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -90,5 +90,38 @@ export const styles = StyleSheet.create({
   scoreUnit: {
     color: '#1560A5',
     marginLeft: 5,
+  },
+
+  // score items:
+
+  scoreItem: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  scoreItemBlock: {
+    minWidth: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    padding: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  scoreItemContent: {
+    flex: 1,
+  },
+  scoreItemIconWrap: {
+    padding: 5,
+  },
+  scoreItemTitle: {
+    textTransform: 'uppercase',
+    fontSize: 20,
   },
 });

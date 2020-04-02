@@ -1,5 +1,12 @@
 import React from 'react';
-import { ImageBackground, StatusBar, Text, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslate } from '@root/hooks';
 import { styles } from './styles';
 
@@ -20,7 +27,7 @@ export const HomeScreen = ({ navigation }) => {
           <View style={styles.screenHeader}>
             <Text style={styles.titleTexts}>
               <Text style={styles.titleTextCovid}>COVID-19</Text>
-              <Text style={styles.titleTextNoMore}>no more</Text>
+              <Text style={styles.titleTextNoMore}> no more</Text>
             </Text>
             <Text style={styles.slogan}>contribue la oprirea răspândirii</Text>
             <View style={styles.scoreBoard}>
@@ -45,7 +52,70 @@ export const HomeScreen = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.screenBody}>
-            <Text />
+            <ScrollView style={styles.scoreItems}>
+              <View style={styles.scoreItem}>
+                <View style={styles.scoreItemBlock}>
+                  <Text style={styles.scoreValue}>10</Text>
+                  <Text style={styles.scoreUnit}> pct</Text>
+                </View>
+                <View style={styles.scoreItemContent}>
+                  <Text style={styles.scoreItemTitle}>Access locatie</Text>
+                  <Text style={styles.scoreItemDescription}>
+                    permiteti accesul la localizare
+                  </Text>
+                </View>
+                <View style={styles.scoreItemIconWrap}>
+                  <Icon name="close-circle" size={36} color="#ED1C24" />
+                </View>
+              </View>
+              <View style={styles.scoreItem}>
+                <View style={styles.scoreItemBlock}>
+                  <Text style={styles.scoreValue}>10</Text>
+                  <Text style={styles.scoreUnit}> pct</Text>
+                </View>
+                <View style={styles.scoreItemContent}>
+                  <Text style={styles.scoreItemTitle}>Access bluetooth</Text>
+                  <Text style={styles.scoreItemDescription}>
+                    permiteti accesul la bluetooth
+                  </Text>
+                </View>
+                <View style={styles.scoreItemIconWrap}>
+                  <Icon name="check-circle" size={36} color="#75B675" />
+                </View>
+              </View>
+              <View style={styles.scoreItem}>
+                <View style={styles.scoreItemBlock}>
+                  <Text style={styles.scoreValue}>10</Text>
+                  <Text style={styles.scoreUnit}> pct</Text>
+                </View>
+                <View style={styles.scoreItemContent}>
+                  <Text style={styles.scoreItemTitle}>
+                    Creaza profil personal
+                  </Text>
+                  <Text style={styles.scoreItemDescription}>
+                    date legate de starea de sanatate
+                  </Text>
+                </View>
+                <View style={styles.scoreItemIconWrap}>
+                  <Icon name="check-circle" size={36} color="#C1BCBD" />
+                </View>
+              </View>
+              <View style={styles.scoreItem}>
+                <View style={styles.scoreItemBlock}>
+                  <Text style={styles.scoreValue}>10</Text>
+                  <Text style={styles.scoreUnit}> pct</Text>
+                </View>
+                <View style={styles.scoreItemContent}>
+                  <Text style={styles.scoreItemTitle}>Chestionar zilnic</Text>
+                  <Text style={styles.scoreItemDescription}>
+                    afla despre riskul de a fi infectat
+                  </Text>
+                </View>
+                <View style={styles.scoreItemIconWrap}>
+                  <Icon name="check-circle" size={36} color="#C1BCBD" />
+                </View>
+              </View>
+            </ScrollView>
           </View>
         </View>
       </ImageBackground>
