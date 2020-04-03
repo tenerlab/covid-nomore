@@ -64,7 +64,7 @@ const onPressLocationItem = async ({ scoreItemsState, setScoreItemsState }) => {
 };
 
 const onPressBluetoothItem = () => {
-  console.log('onPressBluetoothItem');
+  Toast.show('Accesul la bluetooth e deja permis', Toast.SHORT);
   // we always have bluetooth permissions, if we have added them to AndroidManifest
 };
 
