@@ -13,5 +13,5 @@ export const isLocationEnabled = async () => {
 
 export const hasLocationPermissions = async () => {
   const status = await getLocationStatus();
-  return status === BackgroundGeolocation.AUTHORIZED;
+  return status && status.authorization === BackgroundGeolocation.AUTHORIZED;
 };
