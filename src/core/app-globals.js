@@ -57,7 +57,11 @@ export class AppGlobals {
 
   static setCurrentUserProperty(key, value, updateState = true) {
     const currentUser = this.getCurrentUser();
-    let newCurrentUser = cloneDeep(currentUser);
+    let newCurrentUser = {};
+
+    if (typeof currentUser === 'object' && currentUser !== null)
+      newCurrentUser = cloneDeep(currentUser);
+
     newCurrentUser[key] = value;
     this.setCurrentUser(newCurrentUser, updateState);
   }
