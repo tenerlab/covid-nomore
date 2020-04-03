@@ -4,6 +4,7 @@ export { MainScreen } from './MainScreen';
 export { HomeScreen } from './HomeScreen';
 export { InfoScreen } from './InfoScreen';
 
+export { QuestionnaireScreen } from './QuestionnaireScreen';
 export { InitProfileScreen } from './InitProfileScreen';
 export { ProfileScreen } from './ProfileScreen';
 export { RiskScreen } from './RiskScreen';

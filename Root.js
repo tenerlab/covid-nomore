@@ -8,6 +8,7 @@ import {
   MainScreen,
   HomeScreen,
   InfoScreen,
+  QuestionnaireScreen,
   InitProfileScreen,
   ProfileScreen,
   RiskScreen,
@@ -51,6 +52,12 @@ const RootStack = () => (
     <Stack.Screen
       name="Info"
       component={InfoScreen}
+      options={{ headerShown: false }}
+      initialParams={{}}
+    />
+    <Stack.Screen
+      name="Questionnaire"
+      component={QuestionnaireScreen}
       options={{ headerShown: false }}
       initialParams={{}}
     />
