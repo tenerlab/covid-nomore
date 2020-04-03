@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -10,10 +10,23 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Toast from 'react-native-simple-toast';
 import { useTranslate } from '@root/hooks';
+import { AppGlobals } from '@root/core/app-globals';
 import { LocationUtils } from '@root/utils/location-utils';
+import { BluetoothUtils } from '@root/utils/bluetooth-utils';
 import { styles } from './styles';
 
+const cloneDeep = require('lodash/cloneDeep');
+
 const screenBgImg = require('@root/images/bg.png');
+
+const defaultScoreItemsState = {
+  location: false,
+  bluetooth: false,
+  profile: false,
+  questionnaire: false,
+};
+
+let scoreItemsInitState = 'not_initialized';
 
 /* ********************************** UTILS ********************************* */
 
@@ -22,11 +35,18 @@ const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
   navigation.navigate(screenName, screenParams);
 };
 
+const updateStateKey = (currentStateData, setStateData, key, newValue) => {
+  let newStateData = cloneDeep(currentStateData);
+  newStateData[key] = newValue;
+  setStateData(newStateData);
+};
+
 /* ********************************* EVENTS ********************************* */
 
-const onPressLocationItem = async () => {
+const onPressLocationItem = async ({ scoreItemsState, setScoreItemsState }) => {
   if (await LocationUtils.hasLocationPermissions()) {
     Toast.show('Accesul la localizare e deja permis', Toast.SHORT);
+    updateStateKey(scoreItemsState, setScoreItemsState, 'location', true);
     return;
   }
 
@@ -36,7 +56,8 @@ const onPressLocationItem = async () => {
 
   await LocationUtils.requestLocationPermissions(
     ({ permissionIsGranted }) => {
-      console.log('permissionIsGranted', permissionIsGranted);
+      const val = !!permissionIsGranted;
+      updateStateKey(scoreItemsState, setScoreItemsState, 'location', val);
     },
     requestTitle,
     requestMessage
@@ -44,7 +65,7 @@ const onPressLocationItem = async () => {
 };
 
 const onPressBluetoothItem = () => {
-  console.log('onPressLocationItem');
+  console.log('onPressBluetoothItem');
 };
 
 const onPressProfileItem = navigation => {
@@ -55,14 +76,42 @@ const onPressQuestionnaireItem = navigation => {
   navigateToScreen(navigation, 'Questionnaire', {});
 };
 
+/* ********************************* ACTIONS ******************************** */
+
+const updateScoreItems = async ({ scoreItemsState, setScoreItemsState }) => {
+  let newStateData = cloneDeep(scoreItemsState);
+  newStateData.location = await LocationUtils.hasLocationPermissions();
+  newStateData.bluetooth = await BluetoothUtils.hasBluetoothPermissions();
+  setScoreItemsState(newStateData);
+};
+
+const initScoreItems = async ({ scoreItemsState, setScoreItemsState }) => {
+  scoreItemsInitState = 'initializing';
+
+  await updateScoreItems({ scoreItemsState, setScoreItemsState });
+
+  scoreItemsInitState = 'initialized';
+};
+
 /* ********************************** MAIN ********************************** */
 
 // eslint-disable-next-line
 export const HomeScreen = ({ navigation }) => {
+  AppGlobals.acceptUpdates();
+
+  const [scoreItemsState, setScoreItemsState] = useState(
+    defaultScoreItemsState
+  );
+
+  if (scoreItemsInitState == 'not_initialized')
+    initScoreItems({ scoreItemsState, setScoreItemsState });
+
   const t = useTranslate(); // eslint-disable-line no-unused-vars
 
   // TODO: update dictionary.js and implement translation
   // translation usage example: t('slides', 'some text')
+
+  const iconSize = 42;
 
   return (
     <View style={styles.container}>
@@ -100,7 +149,9 @@ export const HomeScreen = ({ navigation }) => {
             <ScrollView style={styles.scoreItems}>
               <TouchableOpacity
                 style={styles.scoreItem}
-                onPress={onPressLocationItem}
+                onPress={() => {
+                  onPressLocationItem({ scoreItemsState, setScoreItemsState });
+                }}
               >
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
@@ -113,12 +164,19 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="close-circle" size={42} color="#ED1C24" />
+                  {scoreItemsState.location && (
+                    <Icon name="check-circle" size={iconSize} color="#75B675" />
+                  )}
+                  {!scoreItemsState.location && (
+                    <Icon name="close-circle" size={iconSize} color="#ED1C24" />
+                  )}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.scoreItem}
-                onPress={onPressBluetoothItem}
+                onPress={() => {
+                  onPressBluetoothItem({ scoreItemsState, setScoreItemsState });
+                }}
               >
                 <View style={styles.scoreItemBlock}>
                   <Text style={styles.scoreValue}>10</Text>
@@ -131,7 +189,12 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={42} color="#75B675" />
+                  {scoreItemsState.bluetooth && (
+                    <Icon name="check-circle" size={iconSize} color="#75B675" />
+                  )}
+                  {!scoreItemsState.bluetooth && (
+                    <Icon name="close-circle" size={iconSize} color="#ED1C24" />
+                  )}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -153,7 +216,12 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={42} color="#C1BCBD" />
+                  {scoreItemsState.profile && (
+                    <Icon name="check-circle" size={iconSize} color="#75B675" />
+                  )}
+                  {!scoreItemsState.profile && (
+                    <Icon name="check-circle" size={iconSize} color="#C1BCBD" />
+                  )}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -173,7 +241,12 @@ export const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.scoreItemIconWrap}>
-                  <Icon name="check-circle" size={42} color="#C1BCBD" />
+                  {scoreItemsState.questionnaire && (
+                    <Icon name="check-circle" size={iconSize} color="#75B675" />
+                  )}
+                  {!scoreItemsState.questionnaire && (
+                    <Icon name="check-circle" size={iconSize} color="#C1BCBD" />
+                  )}
                 </View>
               </TouchableOpacity>
             </ScrollView>
