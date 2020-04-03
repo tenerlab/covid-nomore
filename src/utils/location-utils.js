@@ -1,11 +1,12 @@
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
+import { PermissionsAndroid } from 'react-native';
 import { dotPathOr } from 'ramda-extension';
 
 export class LocationUtils {
   /* ******************************** STATE ********************************* */
 
   static async isLocationEnabled() {
-    const status = await this.getLocationStatus();
+    const status = await this.getLocationStatusPromise();
     const isEnabled =
       dotPathOr(false, 'locationServicesEnabled', status) === true;
 
@@ -28,7 +29,7 @@ export class LocationUtils {
   /* ****************************** PERMISSIONS ****************************** */
 
   static async hasLocationPermissions() {
-    const status = await this.getLocationStatus();
+    const status = await this.getLocationStatusPromise();
     const isAuthorized =
       dotPathOr(false, 'authorization', status) ===
       BackgroundGeolocation.AUTHORIZED;
@@ -36,13 +37,29 @@ export class LocationUtils {
     return isAuthorized;
   }
 
-  static async requestLocationPermissions(text, callback) {
-    const requestResult = false; // true for granted, false for denied
+  static async requestLocationPermissions(
+    callback,
+    title = 'Location Permission',
+    message = 'Application needs access to your location'
+  ) {
+    const rationale = {
+      title,
+      message,
+      buttonPositive: 'Ok',
+    };
 
-    // TODO: finish this method
+    const permission = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION;
+    const requestResult = await PermissionsAndroid.request(
+      permission,
+      rationale
+    );
+    const permissionIsGranted =
+      requestResult === PermissionsAndroid.RESULTS.GRANTED;
 
-    if (typeof callback === 'function') callback({ requestResult });
-    return requestResult;
+    if (typeof callback === 'function')
+      callback({ requestResult, permissionIsGranted });
+
+    return permissionIsGranted;
   }
 
   /* ************************ PERMISSIONS LISTENERS ************************* */
@@ -62,7 +79,9 @@ export class LocationUtils {
 
   static async getLocationStatusPromise() {
     return new Promise(resolve => {
+      console.log('BackgroundGeolocation', BackgroundGeolocation);
       BackgroundGeolocation.checkStatus(resolve);
+      console.log('foo resolve', resolve);
     });
   }
 }
