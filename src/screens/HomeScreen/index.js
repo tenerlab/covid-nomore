@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Toast from 'react-native-simple-toast';
 import { useTranslate } from '@root/hooks';
 import { LocationUtils } from '@root/utils/location-utils';
-import { hasLocationPermissions } from '@root/utils/location';
 import { styles } from './styles';
 
 const screenBgImg = require('@root/images/bg.png');
@@ -26,23 +25,22 @@ const navigateToScreen = async (navigation, screenName, screenParams = {}) => {
 /* ********************************* EVENTS ********************************* */
 
 const onPressLocationItem = async () => {
-  console.log('p1');
-  const hasPerm = await hasLocationPermissions();
-  console.log('hasPerm', hasPerm);
-  console.log('p2');
-
   if (await LocationUtils.hasLocationPermissions()) {
     Toast.show('Accesul la localizare e deja permis', Toast.SHORT);
     return;
   }
 
-  console.log('p3');
+  const requestTitle = 'Access locație';
+  const requestMessage =
+    'Aplicația are nevoie de acces la locație pentru a ști unde și cu cine ați intrat in contact și sa vă notifice daca acea persoana a fost diagnosticata pozitiv.';
 
-  await LocationUtils.requestLocationPermissions(({ permissionIsGranted }) => {
-    console.log('permissionIsGranted', permissionIsGranted);
-  });
-
-  console.log('p4');
+  await LocationUtils.requestLocationPermissions(
+    ({ permissionIsGranted }) => {
+      console.log('permissionIsGranted', permissionIsGranted);
+    },
+    requestTitle,
+    requestMessage
+  );
 };
 
 const onPressBluetoothItem = () => {
