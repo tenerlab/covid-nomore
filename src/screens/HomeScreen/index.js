@@ -12,7 +12,6 @@ import Toast from 'react-native-simple-toast';
 import { useTranslate } from '@root/hooks';
 import { AppGlobals } from '@root/core/app-globals';
 import { LocationUtils } from '@root/utils/location-utils';
-import { BluetoothUtils } from '@root/utils/bluetooth-utils';
 import { styles } from './styles';
 
 const cloneDeep = require('lodash/cloneDeep');
@@ -21,7 +20,7 @@ const screenBgImg = require('@root/images/bg.png');
 
 const defaultScoreItemsState = {
   location: false,
-  bluetooth: false,
+  bluetooth: true,
   profile: false,
   questionnaire: false,
 };
@@ -66,6 +65,7 @@ const onPressLocationItem = async ({ scoreItemsState, setScoreItemsState }) => {
 
 const onPressBluetoothItem = () => {
   console.log('onPressBluetoothItem');
+  // we always have bluetooth permissions, if we have added them to AndroidManifest
 };
 
 const onPressProfileItem = navigation => {
@@ -81,7 +81,6 @@ const onPressQuestionnaireItem = navigation => {
 const updateScoreItems = async ({ scoreItemsState, setScoreItemsState }) => {
   let newStateData = cloneDeep(scoreItemsState);
   newStateData.location = await LocationUtils.hasLocationPermissions();
-  newStateData.bluetooth = await BluetoothUtils.hasBluetoothPermissions();
   setScoreItemsState(newStateData);
 };
 
