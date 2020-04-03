@@ -38,13 +38,15 @@ export class LocationUtils {
   }
 
   static async requestLocationPermissions(
-    callback,
-    title = 'Location Permission',
-    message = 'Application needs access to your location'
+    callback = null,
+    title = null,
+    message = null
   ) {
+    const defaultTitle = 'Location Permission';
+    const defaultMessage = 'Application needs access to your location';
     const rationale = {
-      title,
-      message,
+      title: typeof title == 'string' ? title : defaultTitle,
+      message: typeof message == 'string' ? message : defaultMessage,
       buttonPositive: 'Ok',
     };
 
@@ -79,9 +81,7 @@ export class LocationUtils {
 
   static async getLocationStatusPromise() {
     return new Promise(resolve => {
-      console.log('BackgroundGeolocation', BackgroundGeolocation);
       BackgroundGeolocation.checkStatus(resolve);
-      console.log('foo resolve', resolve);
     });
   }
 }
