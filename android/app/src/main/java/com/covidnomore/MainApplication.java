@@ -21,6 +21,7 @@ import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.actionsheet.ActionSheetPackage;
 import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,19 +38,20 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SvgPackage(),
-            new RNDeviceInfo(),
-            new AsyncStoragePackage(),
-            new VectorIconsPackage(),
-            new ReactNativeConfigPackage(),
-            new RNGestureHandlerPackage(),
-            new NetInfoPackage(),
-            new RNLocalizePackage(),
-            new ActionSheetPackage(),
-            new RNVersionNumberPackage(),
-            new LinearGradientPackage(),
-            new SafeAreaContextPackage(),
-            new RNCViewPagerPackage()
+          new SvgPackage(),
+          new RNDeviceInfo(),
+          new AsyncStoragePackage(),
+          new VectorIconsPackage(),
+          new ReactNativeConfigPackage(),
+          new RNGestureHandlerPackage(),
+          new NetInfoPackage(),
+          new RNLocalizePackage(),
+          new ActionSheetPackage(),
+          new RNVersionNumberPackage(),
+          new LinearGradientPackage(),
+          new SafeAreaContextPackage(),
+          new RNCViewPagerPackage(),
+          new BackgroundGeolocationPackage()
       );
     }
 

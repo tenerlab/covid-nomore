@@ -18,6 +18,7 @@
     "rebase-continue": "sh ./scripts/rebase-continue.sh"
   },
   "dependencies": {
+    "@mauron85/react-native-background-geolocation": "^0.6.3",
     "@react-native-community/async-storage": "^1.6.1",
     "@react-native-community/checkbox": "^0.3.0",
     "@react-native-community/masked-view": "^0.1.7",
